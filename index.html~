@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Arm-java by ignacioarnaldo</title>
+    <title>ARM-Java by ignacioarnaldo</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -28,24 +28,54 @@
       </header>
       <section>
 
-        <h3>
-<a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Adaptive Regression by Mixing</h3>
+<h1><a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Adaptive Regression by Mixing</h1>
 
-<p>Adaptive Regression by Mixing fuses the predictions of regressors according to an estimation of their accuracy. The fused model obtained with ARM is a linear combination of the original models. 
-This way, it is possible to fuse predictors obtained with different algorithms. For instance, one could combine the predictions of a Neural Networks with the predictions of CART etc.
-algorithms. It  to be fused. was introduced by Yuhong Yang in 2001.</p>
-
-<p>ARM was introduced in:</p>
+<p>Adaptive Regression by Mixing (ARM) was introduced in:</p>
 
 <p><em>Yuhong Yang: <a href="http://www.tandfonline.com/doi/abs/10.1198/016214501753168262#.VINK9HVGjUY">Adaptive Regression by Mixing.</a> Journal of American Statistical Association, 96:454, 574-588, 2001.</em></p>
 
+<p>ARM fuses the predictions of a set of models according to an estimation of their accuracy. The fused model obtained with ARM is a linear combination of the predictions of the original models. 
+This way, it is possible to fuse predictions obtained with different models and algorithms. For instance, one could combine the predictions of a Neural Network with the predictions of CART etc.</p>
+
+
+
 <h1><a id="publications" class="anchor" href="#publications" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tutorial</h1>
 
+<h3><a name="step-2-data-format" class="anchor" href="#step-2-data-format"><span class="octicon octicon-link"></span></a>Step 1: Data format</h3>
+
+<p>Data must be provided in csv format where:
+<ol>
+<li>each line corresponds to an exemplar</li>
+<li>each column contains the predictions of one model (procedure in the paper)</li>
+<li>the target/true values are placed in the last column</li>
+</ol>
+Any additional line or column containing labels or nominal values needs to be removed.</p>
+
+<h3><a name="step-1-download-the-flexgpjar-file-from-here" class="anchor" href="#step-1-download-the-jar-file-from-here"><span class="octicon 
+octicon-link"></span></a>Step 2: Download the armfusion.jar file from <a href="downloads/armfusion.jar">here</a></h2>
+
+<h3><a name="step-3-running-flexgp" class="anchor" href="#step-3-running-flexgp"><span class="octicon 
+octicon-link"></span></a>Step 4: Running ARM</h3>
+
+<p>All you need to provide is the path to your prediction matrix in csv format and the number of iterations:</p>
+
+<pre><code>$ java -jar armfusion.jar -csv path_to_preds -iters num_iters
+</code></pre>
+
+<p>At the end of the run, the fused model is printed. Below, we show a fused model obtained by fusing 5 models:</p>
+<pre><code>   0.7 * y0
++ 0.0 * y1
++ 0.1 * y2
++ 0.2 * y3
++ 0.0 * y4
+</code></pre>
+<p>In the example, the first model <em>y0</em> is assigned a weight of <em>0.7</em>. Models <em>y2</em> and <em>y3</em> receive the weights <em>0.1</em> and <em>0.2</em> respectively 
+while the remaining <em>y1</em> and <em>y4</em> have zero weights.</p>
 
 
 <h1><a id="publications" class="anchor" href="#publications" aria-hidden="true"><span class="octicon octicon-link"></span></a>Publications</h1>
 
-The released Java implementation of ARM has been used in the following publications:
+<p>This implementation of ARM has been used in the following publications:</p>
 
 <p><em>I Arnaldo, K Veeramachaneni, UM O'Reilly: <a href="http://link.springer.com/chapter/10.1007/978-3-662-44303-3_2">Flash: A GP-GPU Ensemble Learning System for Handling Large Datasets.</a>
 Genetic Programming. Lecture Notes in Computer Science Volume 8599, 2014, pp 13-24.</em></p>
