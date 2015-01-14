@@ -47,51 +47,7 @@ This way, it is possible to fuse predictions obtained with different models and 
 
 <h1><a id="algorithm" class="anchor" href="#algorithm" aria-hidden="true"><span class="octicon octicon-link"></span></a>Algorithm</h1>
 
-<p>ARM allows to fuse a set of models <b><em>M</em></b> according to an estimation of their accuracy. The fused model <b><em>z</em></b> obtained with ARM is a linear combination of the models
-<img src="http://latex.codecogs.com/svg.latex?m \in M" border="0"/>. 
-Given a test sample <img src="http://latex.codecogs.com/svg.latex?X_j" border="0"/>, 
-the prediction <img src="http://latex.codecogs.com/svg.latex?\hat{z}_j" border="0"/> issued by the fused  model is the weighted average of model predictions<br>
-<center><img src="http://latex.codecogs.com/svg.latex?\hat{z}_j=\sum_{m=1}^{o}W_m\hat{Y}_{mj}" border="0"/></center></p>
-
-Thus, the fusion process consists of learning the weight 
-<img src="http://latex.codecogs.com/svg.latex?W_m" border="0"/> 
-for each model. Let 
-<img src="http://latex.codecogs.com/svg.latex?r=|D|" border="0"/>
-be the size of the fusion training set, and 
-<img src="http://latex.codecogs.com/svg.latex?o=|$M$|" border="0"/> 
-be the number of models in the ensemble. Here, we assume that the errors for each model are normally distributed. We then use the variance in these errors to identify the weights by executing the following steps:</p>
-
-<ol>
-	<li>Split 
-<img src="http://latex.codecogs.com/svg.latex?D" border="0"/> 
-randomly into two equally sized subsets 
-<img src="http://latex.codecogs.com/svg.latex?D^{(1)} \text{ and } D^{(2)}" border="0"/></li>
-	<li>For each model <b><em>m</em></b>, evaluate 
-<img src="http://latex.codecogs.com/svg.latex?\sigma_m^2" border="0"/> 
-which is the maximum likelihood estimate of the variance of the errors 
-<img src="http://latex.codecogs.com/svg.latex?\overline{e}_{m} \text{ on } D^{(1)}" border="0"/> <br>
-<center><img src="http://latex.codecogs.com/svg.latex?\overline{e}_{m}=\{\hat{Y}_{mj}-Y_j|\overline{X_j},Y_j \in D_{f}^{(1)}\}} " border="0"/></center>
-Compute the sum of squared errors on 
-<img src="http://latex.codecogs.com/svg.latex?D^{(2)}" border="0"/> <br>
-<center><img src="http://latex.codecogs.com/svg.latex?\beta_m= \sum_{j=\frac{r}{2}+1}^r(\hat{Y_{mj}}-Y_j)^2" border="0"/></center></li>
-	<li>Estimate the weights using:<br>
-<center><img src="http://latex.codecogs.com/svg.latex?$W_m=\frac{(\sigma_m)^{-r/2} exp(-\sigma_m^{-2}{\beta_m/2})}{\sum_{j=1}^{o}(\sigma_j)^{-r/2}exp(-\sigma_j^{-2}{\beta_j/2})}$" border="0"/> </center>
-	</li>
-
-	<li>Repeat steps 1-3 for a fixed number of times. Average the weights from each iteration to get the final
-  weights for the models.</li>
-
-</ol>
-
-
-<p>Transformation for large <b><em>r</em></b>: for large values of <b><em>r</em></b>, the calculation of the weights encounters an underflow error. To avoid this problem we equivalently compute the weights using:</p>
-<center><img src="http://latex.codecogs.com/svg.latex?A_m=-\frac{r}{2}log(\sigma_m) + \frac{{-\sigma_m}^{-2}\beta_m}{2} " border="0"/></center><br>
-and <br>
-<center><img src="http://latex.codecogs.com/svg.latex?W_m=exp(A_m - log(\sum_{q=1}^{o}A_q))" border="0"/></center></p>
-
-
-
-
+<p><a href="algorithm.html">Overview of the ARM algorithm</a>.</p>
 
 <h1><a id="tutorial" class="anchor" href="#tutorial" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tutorial</h1>
 
